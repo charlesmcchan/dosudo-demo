@@ -1,0 +1,35 @@
+version: '2'
+services:
+  onos:
+    image: onosproject/onos
+    networks:
+      management:
+        ipv4_address: 10.66.67.2
+    volumes:
+      - ./volumes/onos:/root/onos/config
+    ports:
+      - "8181:8181"
+      - "8101:8101"
+    environment:
+      - ONOS_APPS=drivers,openflow-base,netcfghostprovider,lldpprovider,proxyarp
+
+  mininet:
+    privileged: true
+    image: rascov/docker-fabric
+    networks:
+      management:
+        ipv4_address: 10.66.67.3
+    volumes:
+      - ./volumes/mininet:/root/script
+    command: mn --mac --custom /root/script/default.py --topo=att --controller=remote,ip=10.66.67.2 --switch=user
+    stdin_open: true
+    tty: true
+
+networks:
+  management:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.66.67.0/24
+          gateway: 10.66.67.1
