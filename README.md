@@ -29,13 +29,13 @@ Setup an ONOS/Mininet environment for demo at Dosudo Meetup.
 1. Open a terminal window and attach to Mininet CLI
 
 	```
-	docker attach dosudo_mininet_1
+	docker attach dosudodemo_mininet_1
 	```
 	
 1. Open a terminal window and attach to h17
 
 	```
-	docker exec -it dosudo_mininet_1 /root/mininet/util/m h17
+	docker exec -it dosudodemo_mininet_1 /root/mininet/util/m h17
 	```
 	
 1. Ping from h17 to h5. It should fail since we have not enabled any traffic forwarding app.
